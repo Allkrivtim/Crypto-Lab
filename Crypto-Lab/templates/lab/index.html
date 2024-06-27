@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crypto Lab</title>
+</head>
+<body>
+    <h1>Welcome to Crypto Lab</h1>
+    <p>Your token balance: {{ profile.token_balance }}</p>
+    <p>Your knowledge points: {{ profile.knowledge_points }}</p>
+    <button id="clickButton">Click to earn tokens</button>
+
+    <script>
+        document.getElementById('clickButton').addEventListener('click', function() {
+            fetch('/earn_tokens/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.querySelector('p').innerText = `Your token balance: ${data.token_balance}`;
+            });
+        });
+    </script>
+</body>
+</html>
