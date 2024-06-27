@@ -1,10 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    telegram_id = models.CharField(max_length=100, unique=True)
     token_balance = models.PositiveIntegerField(default=0)
     knowledge_points = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.user.username
+        return self.telegram_id
