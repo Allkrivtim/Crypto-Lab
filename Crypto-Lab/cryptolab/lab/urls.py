@@ -1,8 +1,7 @@
 from django.urls import path
-from . import views
+from .views import index, collect_dust
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
-    path('earn_tokens/', views.earn_tokens, name='earn_tokens'),
+    path('', index, name='index'),
+    path('collect_dust/', collect_dust, name='collect_dust'),
 ]

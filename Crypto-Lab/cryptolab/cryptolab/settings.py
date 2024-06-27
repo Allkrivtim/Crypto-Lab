@@ -1,39 +1,23 @@
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = 'django-insecure-some-secret-key'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'your-secret-key'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
-# Application definition
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '9211-77-238-244-231.ngrok-free.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'lab',  # Your application
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'lab',
 ]
-
-SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -41,7 +25,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'allauth.account.middleware.AccountMiddleware',  # Allauth middleware
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -51,7 +34,7 @@ ROOT_URLCONF = 'cryptolab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [r'E:\PycharmProjects\Crypto-Lab\Crypto-Lab\Crypto-Lab\templates'],  # Указываем полный путь до папки templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,20 +49,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'cryptolab.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,23 +71,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_USERNAME_REQUIRED = False
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -121,13 +79,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = [BASE_DIR / 'static']
