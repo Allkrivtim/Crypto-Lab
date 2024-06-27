@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Page 1{% endblock %}
+
+{% block content %}
+<div class="fade-in">
+    <h1>Page 1</h1>
+    <div class="bottom-buttons">
+        <button onclick="navigate('/lab/?user_id={{ user.telegram_id }}')">Home</button>
+        <button onclick="navigate('/lab/page2/?user_id={{ user.telegram_id }}')">Page 2</button>
+    </div>
+</div>
+{% endblock %}

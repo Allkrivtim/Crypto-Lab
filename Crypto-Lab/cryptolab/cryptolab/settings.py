@@ -3,11 +3,14 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 SECRET_KEY = 'django-insecure-some-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '411f-77-238-244-231.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '91bc-77-238-244-231.ngrok-free.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,12 +30,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cryptolab.middleware.NgrokMiddleware',  # Добавляем наше middleware
 ]
+
 
 ROOT_URLCONF = 'cryptolab.urls'
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://411f-77-238-244-231.ngrok-free.app'
+    'https://91bc-77-238-244-231.ngrok-free.app'
 ]
 
 

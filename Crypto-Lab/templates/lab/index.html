@@ -1,46 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Lab</title>
-    <style>
-        /* Добавим минимальные стили для кнопки и счетчика */
-        .button {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: yellow;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-        }
+{% extends "base.html" %}
 
-        .counter {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="counter">Tokens: <span id="tokenCount">{{ user.tokens }}</span></div>
-    <div class="button" id="collectButton">Tap</div>
+{% block title %}Crypto Lab{% endblock %}
 
-    <script>
-        document.getElementById('collectButton').addEventListener('click', async function() {
-            const response = await fetch('/lab/collect_dust/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({user_id: '{{ user.telegram_id }}'})
-            });
-            const data = await response.json();
-            document.getElementById('tokenCount').textContent = data.tokens;
-        });
-    </script>
-</body>
-</html>
+{% block content %}
+<div class="fade-in">
+    <div class="counter" id="counter">{{ user.tokens }}</div>
+    <div class="level">Level {{ user.level }}</div>
+    <div class="button-container">
+        <div class="circle-button" onclick="collectDust()">X1</div>
+    </div>
+    <div class="bottom-buttons">
+        <button onclick="navigate('/lab/page1/?user_id={{ user.telegram_id }}')">Page 1</button>
+        <button onclick="navigate('/lab/page2/?user_id={{ user.telegram_id }}')">Page 2</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function collectDust() {
+        fetch('/lab/collect_dust/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ user_id: {{ user.telegram_id }} })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('counter').innerText = data.tokens;
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+{% endblock %}
