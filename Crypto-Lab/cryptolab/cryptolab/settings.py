@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-some-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '9211-77-238-244-231.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '411f-77-238-244-231.ngrok-free.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -30,6 +30,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cryptolab.urls'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://411f-77-238-244-231.ngrok-free.app'
+]
+
 
 TEMPLATES = [
     {
