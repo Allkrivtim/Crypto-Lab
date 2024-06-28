@@ -3,14 +3,16 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-SECRET_KEY = 'django-insecure-some-secret-key'
-
+SECRET_KEY = 'your-secret-key'
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '91bc-77-238-244-231.ngrok-free.app']
+
+CORS_ALLOWED_ORIGINS = [
+    'https://91bc-77-238-244-231.ngrok-free.app',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -20,6 +22,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lab',
+    'corsheaders',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 MIDDLEWARE = [
@@ -30,21 +35,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cryptolab.middleware.NgrokMiddleware',  # Добавляем наше middleware
 ]
-
 
 ROOT_URLCONF = 'cryptolab.urls'
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://91bc-77-238-244-231.ngrok-free.app'
-]
-
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'E:\PycharmProjects\Crypto-Lab\Crypto-Lab\Crypto-Lab\templates'],  # Указываем полный путь до папки templates
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,7 +88,8 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATICFILES_DIRS = [BASE_DIR / 'static']

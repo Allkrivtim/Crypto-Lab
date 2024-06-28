@@ -7,7 +7,7 @@ body {
     color: #fff;
     font-family: Arial, sans-serif;
     flex-direction: column;
-    transition: opacity 0.5s;
+    overflow: hidden; /* Убирает прокрутку */
 }
 
 .counter {
@@ -51,6 +51,8 @@ body {
     display: flex;
     justify-content: space-between;
     width: 80%;
+    position: absolute;
+    bottom: 20px; /* Устанавливает кнопки внизу */
 }
 
 .bottom-buttons button {
@@ -61,21 +63,9 @@ body {
     border-radius: 5px;
     cursor: pointer;
     width: 45%;
+    height: 40px; /* Уменьшает высоту кнопок */
 }
 
 .bottom-buttons button:hover {
     background-color: #555;
-}
-
-.fade-in {
-    animation: fadeIn 0.5s;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
