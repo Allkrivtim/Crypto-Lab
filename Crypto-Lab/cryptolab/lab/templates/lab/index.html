@@ -1,0 +1,28 @@
+{% extends "lab/base.html" %} {% block content %}
+<div class="counter" id="counter">{{ user.tokens }}</div>
+<div class="level">Level {{ user.level }}</div>
+<div class="button-container">
+	<div class="circle-button" onclick="collectDust()">X1</div>
+</div>
+<div class="bottom-buttons">
+	<button class="page-link" data-href="{% url 'page1' %}">Page 1</button>
+	<button class="page-link" data-href="{% url 'page2' %}">Page 2</button>
+</div>
+<script>
+	function collectDust() {
+	    fetch('/lab/collect_dust/', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	            'X-CSRFToken': '{{ csrf_token }}'
+	        },
+	        body: JSON.stringify({ user_id: {{ user.telegram_id }} })
+	    })
+	    .then(response => response.json())
+	    .then(data => {
+	        document.getElementById('counter').innerText = data.tokens;
+	    })
+	    .catch(error => console.error('Error:', error));
+	}
+</script>
+{% endblock %}

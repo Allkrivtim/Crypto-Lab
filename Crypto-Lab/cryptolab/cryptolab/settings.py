@@ -1,18 +1,13 @@
 import os
-from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'your-secret-key'
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '91bc-77-238-244-231.ngrok-free.app']
-
-CORS_ALLOWED_ORIGINS = [
-    'https://91bc-77-238-244-231.ngrok-free.app',
-]
-
-CORS_ALLOW_ALL_ORIGINS = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '512a-77-238-244-231.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost', 'https://512a-77-238-244-231.ngrok-free.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,9 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lab',
-    'corsheaders',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +52,7 @@ WSGI_APPLICATION = 'cryptolab.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -85,11 +77,9 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'lab/static')]
