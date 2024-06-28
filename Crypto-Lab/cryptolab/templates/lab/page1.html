@@ -1,11 +1,9 @@
-{% extends "base.html" %}
-
-{% block title %}Page 1{% endblock %}
+{% extends "lab/base.html" %}
 
 {% block content %}
 <h1>Page 1</h1>
 <div class="bottom-buttons">
-    <button onclick="location.href='/lab/?user_id={{ user.telegram_id }}'">Home</button>
-    <button onclick="location.href='/page2/?user_id={{ user.telegram_id }}'">Page 2</button>
+    <button class="page-link" data-href="{% url 'index' %}">Home</button>
+    <button class="page-link" data-href="{% url 'page2' %}">Page 2</button>
 </div>
 {% endblock %}
