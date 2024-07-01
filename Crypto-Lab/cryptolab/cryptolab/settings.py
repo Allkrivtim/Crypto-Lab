@@ -6,8 +6,9 @@ SECRET_KEY = 'your-secret-key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '512a-77-238-244-231.ngrok-free.app']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost', 'https://512a-77-238-244-231.ngrok-free.app']
+USE_TELEGRAM_ID = False  # Установите False, чтобы отключить использование telegram_id
+
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'cryptolab.urls'
+ROOT_URLCONF = 'CryptoLab.urls'
 
 TEMPLATES = [
     {
@@ -47,7 +48,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'cryptolab.wsgi.application'
+WSGI_APPLICATION = 'CryptoLab.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -82,4 +83,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'lab/static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

@@ -1,15 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{% block title %}Crypto Lab{% endblock %}</title>
-		{% load static %}
+		<title>Crypto Lab</title>
 		<link rel="stylesheet" href="{% static 'lab/styles.css' %}" />
+		<script src="{% static 'lab/scripts.js' %}"></script>
+		<script>
+			console.log('scripts.js путь: {% static "lab/scripts.js" %}')
+		</script>
 	</head>
 	<body>
 		<div class="fade-in active"></div>
 		{% block content %} {% endblock %}
-		<script src="{% static 'lab/scripts.js' %}"></script>
 	</body>
 </html>
