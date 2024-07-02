@@ -3,17 +3,16 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Main Page</title>
+		<title>Page 2</title>
 		<link rel="stylesheet" href="/static/styles.css" />
 	</head>
 	<body>
 		<div id="content">
-			<p id="counter">0</p>
-			<button id="clickButton">X1</button>
+			<h1>Page 2</h1>
 		</div>
 		<nav>
+			<button data-url="/lab?user_id={{ user_id }}">Main</button>
 			<button data-url="/page1?user_id={{ user_id }}">Page 1</button>
-			<button data-url="/page2?user_id={{ user_id }}">Page 2</button>
 			<button data-url="/page3?user_id={{ user_id }}">Page 3</button>
 		</nav>
 		<script src="/static/script.js"></script>

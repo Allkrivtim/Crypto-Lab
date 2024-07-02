@@ -1,44 +1,38 @@
-from fastapi import FastAPI, Depends, Request, Query
+from fastapi import FastAPI, Request, HTTPException, Query
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.future import select
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from app.database import get_db, engine
-from app.models import Base, User
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 templates = Jinja2Templates(directory="app/templates")
 
-@app.on_event("startup")
-async def startup():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    return templates.TemplateResponse("error.html", {"request": request, "message": exc.detail}, status_code=exc.status_code)
 
 @app.get("/lab", response_class=HTMLResponse)
-async def read_root(request: Request, db: AsyncSession = Depends(get_db), user_id: int = Query(...)):
-    result = await db.execute(select(User).filter(User.id == user_id))
-    user = result.scalar_one_or_none()
-    if not user:
-        user = User(id=user_id, tokens=0)
-        db.add(user)
-        await db.commit()
-        await db.refresh(user)
-    return templates.TemplateResponse("index.html", {"request": request, "tokens": user.tokens})
+async def read_root(request: Request, user_id: int = Query(None)):
+    if user_id is None:
+        raise HTTPException(status_code=400, detail="Telegram ID not found")
+    return templates.TemplateResponse("index.html", {"request": request, "user_id": user_id})
 
-@app.post("/update_tokens")
-async def update_tokens(request: Request, db: AsyncSession = Depends(get_db)):
-    data = await request.json()
-    user_id = data.get("user_id")
-    tokens = data.get("tokens")
-    result = await db.execute(select(User).filter(User.id == user_id))
-    user = result.scalar_one_or_none()
-    if user:
-        user.tokens = tokens
-        db.add(user)
-        await db.commit()
-        await db.refresh(user)
-    return {"status": "success"}
+@app.get("/page1", response_class=HTMLResponse)
+async def read_page1(request: Request, user_id: int = Query(None)):
+    if user_id is None:
+        raise HTTPException(status_code=400, detail="Telegram ID not found")
+    return templates.TemplateResponse("page1.html", {"request": request, "user_id": user_id})
+
+@app.get("/page2", response_class=HTMLResponse)
+async def read_page2(request: Request, user_id: int = Query(None)):
+    if user_id is None:
+        raise HTTPException(status_code=400, detail="Telegram ID not found")
+    return templates.TemplateResponse("page2.html", {"request": request, "user_id": user_id})
+
+@app.get("/page3", response_class=HTMLResponse)
+async def read_page3(request: Request, user_id: int = Query(None)):
+    if user_id is None:
+        raise HTTPException(status_code=400, detail="Telegram ID not found")
+    return templates.TemplateResponse("page3.html", {"request": request, "user_id": user_id})

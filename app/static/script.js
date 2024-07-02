@@ -1,26 +1,40 @@
-document.addEventListener('DOMContentLoaded', async function () {
-	const counterDisplay = document.getElementById('counter')
+document.addEventListener('DOMContentLoaded', function () {
+	const content = document.getElementById('content')
+	const counter = document.getElementById('counter')
 	const clickButton = document.getElementById('clickButton')
 
-	const urlParams = new URLSearchParams(window.location.search)
-	const userId = urlParams.get('user_id')
+	let tokens = parseInt(localStorage.getItem('tokens') || '0')
+	counter.textContent = tokens
 
-	let counter = parseInt(localStorage.getItem(`tokens_${userId}`)) || 0
-	counterDisplay.textContent = counter
+	function fadeOut(element) {
+		element.style.transition = 'opacity 0.5s ease-out'
+		element.style.opacity = 0
+	}
+
+	function fadeIn(element) {
+		element.style.transition = 'opacity 0.5s ease-in'
+		element.style.opacity = 1
+	}
+
+	function navigateTo(url) {
+		fadeOut(content)
+		setTimeout(() => {
+			window.location.href = url
+		}, 500)
+	}
+
+	window.addEventListener('load', () => fadeIn(content))
 
 	clickButton.addEventListener('click', function () {
-		counter++
-		counterDisplay.textContent = counter
-		localStorage.setItem(`tokens_${userId}`, counter)
+		tokens += 1
+		counter.textContent = tokens
+		localStorage.setItem('tokens', tokens)
 	})
 
-	window.addEventListener('beforeunload', async function () {
-		await fetch('/update_tokens', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ user_id: userId, tokens: counter }),
+	const navButtons = document.querySelectorAll('nav button')
+	navButtons.forEach(button => {
+		button.addEventListener('click', () => {
+			navigateTo(button.getAttribute('data-url'))
 		})
 	})
 })
