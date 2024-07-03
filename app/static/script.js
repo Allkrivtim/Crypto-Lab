@@ -23,18 +23,36 @@ document.addEventListener('DOMContentLoaded', function () {
 		}, 500)
 	}
 
-	window.addEventListener('load', () => fadeIn(content))
+	window.addEventListener('load', () => {
+		fadeIn(content)
+		console.log(
+			'Page loaded with user_id:',
+			new URLSearchParams(window.location.search).get('user_id')
+		)
+	})
 
 	clickButton.addEventListener('click', function () {
 		tokens += 1
 		counter.textContent = tokens
 		localStorage.setItem('tokens', tokens)
+		console.log('Button clicked, tokens:', tokens)
 	})
 
 	const navButtons = document.querySelectorAll('nav button')
 	navButtons.forEach(button => {
 		button.addEventListener('click', () => {
-			navigateTo(button.getAttribute('data-url'))
+			const userId = new URLSearchParams(window.location.search).get('user_id')
+			console.log(
+				'Navigating to:',
+				button.getAttribute('data-url'),
+				'with user_id:',
+				userId
+			)
+			if (userId) {
+				navigateTo(`${button.getAttribute('data-url')}?user_id=${userId}`)
+			} else {
+				alert('Telegram ID not found')
+			}
 		})
 	})
 })
