@@ -4,7 +4,10 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Main Page</title>
-		<link rel="stylesheet" href="/static/styles.css" />
+		<link
+			rel="stylesheet"
+			href="/staticfiles/styles.css?hash={{ styles_hash }}"
+		/>
 	</head>
 	<body>
 		<div id="content">
@@ -16,6 +19,6 @@
 			<button data-url="/page2">Page 2</button>
 			<button data-url="/page3">Page 3</button>
 		</nav>
-		<script src="/static/script.js"></script>
+		<script src="/staticfiles/script.js?hash={{ script_hash }}"></script>
 	</body>
 </html>

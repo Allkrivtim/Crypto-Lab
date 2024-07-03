@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 from aiogram.filters import Command
-from config import API_TOKEN, NGROK_URL, COMMUNITY_LINK
+from app.config import API_TOKEN, NGROK_URL, COMMUNITY_LINK
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher()

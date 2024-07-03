@@ -2,9 +2,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	const content = document.getElementById('content')
 	const counter = document.getElementById('counter')
 	const clickButton = document.getElementById('clickButton')
+	const navButtons = document.querySelectorAll('nav button')
 
 	let tokens = parseInt(localStorage.getItem('tokens') || '0')
-	counter.textContent = tokens
+	if (counter) {
+		counter.textContent = tokens
+	}
 
 	function fadeOut(element) {
 		element.style.transition = 'opacity 0.5s ease-out'
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	function navigateTo(url) {
 		fadeOut(content)
+		navButtons.forEach(button => fadeOut(button))
 		setTimeout(() => {
 			window.location.href = url
 		}, 500)
@@ -25,20 +29,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	window.addEventListener('load', () => {
 		fadeIn(content)
+		navButtons.forEach(button => fadeIn(button))
 		console.log(
 			'Page loaded with user_id:',
 			new URLSearchParams(window.location.search).get('user_id')
 		)
 	})
 
-	clickButton.addEventListener('click', function () {
-		tokens += 1
-		counter.textContent = tokens
-		localStorage.setItem('tokens', tokens)
-		console.log('Button clicked, tokens:', tokens)
-	})
+	if (clickButton) {
+		clickButton.addEventListener('click', function () {
+			tokens += 1
+			counter.textContent = tokens
+			localStorage.setItem('tokens', tokens)
+			console.log('Button clicked, tokens:', tokens)
+			animateClickButton()
+		})
+	}
 
-	const navButtons = document.querySelectorAll('nav button')
 	navButtons.forEach(button => {
 		button.addEventListener('click', () => {
 			const userId = new URLSearchParams(window.location.search).get('user_id')
@@ -55,4 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		})
 	})
+
+	function animateClickButton() {
+		clickButton.style.animation = 'button-click 0.3s'
+		clickButton.addEventListener('animationend', () => {
+			clickButton.style.animation = ''
+		})
+	}
 })
