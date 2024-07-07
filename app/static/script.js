@@ -9,32 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		counter.textContent = tokens
 	}
 
-	function fadeOut(element) {
-		element.style.transition = 'opacity 0.5s ease-out'
-		element.style.opacity = 0
-	}
-
-	function fadeIn(element) {
-		element.style.transition = 'opacity 0.5s ease-in'
-		element.style.opacity = 1
-	}
-
-	function navigateTo(url) {
-		fadeOut(content)
-		navButtons.forEach(button => fadeOut(button))
-		setTimeout(() => {
-			window.location.href = url
-		}, 500)
-	}
-
-	window.addEventListener('load', () => {
-		fadeIn(content)
-		navButtons.forEach(button => fadeIn(button))
-		console.log(
-			'Page loaded with user_id:',
-			new URLSearchParams(window.location.search).get('user_id')
-		)
-	})
+	console.log('Page loaded, tokens:', tokens)
 
 	if (clickButton) {
 		clickButton.addEventListener('click', function () {
@@ -69,4 +44,28 @@ document.addEventListener('DOMContentLoaded', function () {
 			clickButton.style.animation = ''
 		})
 	}
+
+	function fadeOut(element) {
+		element.style.transition = 'opacity 0.5s ease-out'
+		element.style.opacity = 0
+	}
+
+	function fadeIn(element) {
+		element.style.transition = 'opacity 0.5s ease-in'
+		element.style.opacity = 1
+	}
+
+	function navigateTo(url) {
+		fadeOut(content)
+		navButtons.forEach(button => fadeOut(button))
+		setTimeout(() => {
+			window.location.href = url
+		}, 500)
+	}
+
+	window.addEventListener('load', () => {
+		fadeIn(content)
+		navButtons.forEach(button => fadeIn(button))
+		console.log('Page fully loaded')
+	})
 })

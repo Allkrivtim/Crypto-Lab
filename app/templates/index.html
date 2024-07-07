@@ -4,21 +4,22 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Main Page</title>
-		<link
-			rel="stylesheet"
-			href="/staticfiles/styles.css?hash={{ styles_hash }}"
-		/>
+		<link rel="stylesheet" href="/static/styles.css" />
 	</head>
 	<body>
 		<div id="content">
 			<p id="counter">0</p>
 			<button id="clickButton">X1</button>
+			<button id="syncButton">Sync</button>
+			<!-- Кнопка для синхронизации -->
 		</div>
 		<nav>
 			<button data-url="/page1">Page 1</button>
 			<button data-url="/page2">Page 2</button>
 			<button data-url="/page3">Page 3</button>
 		</nav>
-		<script src="/staticfiles/script.js?hash={{ script_hash }}"></script>
+		<script src="/static/script.js"></script>
+		<script src="/static/db.js"></script>
+		<!-- Скрипт для синхронизации с БД -->
 	</body>
 </html>
