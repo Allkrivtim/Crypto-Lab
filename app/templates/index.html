@@ -3,23 +3,20 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Main Page</title>
+		<title>Счетчик нажатий</title>
 		<link rel="stylesheet" href="/static/styles.css" />
 	</head>
 	<body>
-		<div id="content">
-			<p id="counter">0</p>
-			<button id="clickButton">X1</button>
-			<button id="syncButton">Sync</button>
-			<!-- Кнопка для синхронизации -->
+		<div class="container">
+			<div id="mainButton" class="main-button">X1</div>
 		</div>
-		<nav>
-			<button data-url="/page1">Page 1</button>
-			<button data-url="/page2">Page 2</button>
-			<button data-url="/page3">Page 3</button>
-		</nav>
+		<div class="button-bar-container">
+			<button class="footer-button">1</button>
+			<button class="footer-button">2</button>
+			<button class="footer-button">3</button>
+			<button class="footer-button">4</button>
+		</div>
+		<div class="orange-bar"></div>
 		<script src="/static/script.js"></script>
-		<script src="/static/db.js"></script>
-		<!-- Скрипт для синхронизации с БД -->
 	</body>
 </html>

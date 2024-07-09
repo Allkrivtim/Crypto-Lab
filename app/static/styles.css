@@ -1,106 +1,61 @@
 body {
 	font-family: Arial, sans-serif;
-	background-color: #000000;
 	margin: 0;
 	padding: 0;
+	background-color: #111;
+	color: #fff;
+	overflow: hidden; /* Запрещаем скроллинг страницы */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
-	height: 100vh;
-	color: #ffffff;
+	height: 100vh; /* Занимаем всю высоту окна браузера */
 }
 
-#content {
-	opacity: 0;
-	transition: opacity 0.3s ease-in;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-	width: 100%;
-	max-width: 600px;
-	background-color: #1a1a1a;
-	border-radius: 10px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	padding: 20px;
-	box-sizing: border-box;
+.container {
+	text-align: center;
+	margin-top: 50px;
 }
 
-#counter {
+.main-button {
+	width: 250px;
+	height: 250px;
+	background-color: #ef9a00;
+	color: #fff;
 	font-size: 48px;
-	margin: 20px 0;
-}
-
-#level {
-	font-size: 24px;
-	margin-bottom: 20px;
-}
-
-#clickButton {
-	padding: 20px;
-	font-size: 24px;
-	cursor: pointer;
-	background-color: #ffcc00;
-	color: #000000;
 	border: none;
 	border-radius: 50%;
-	width: 160px;
-	height: 160px;
+	cursor: pointer;
 	display: flex;
+	justify-content: center;
 	align-items: center;
-	justify-content: center;
-	transition: background-color 0.3s;
+	margin-bottom: 20px; /* Отступ снизу для разделения от блока кнопок */
 }
 
-#clickButton:hover {
-	background-color: #e6b800;
-}
-
-#clickButton:focus {
-	outline: none;
-}
-
-nav {
+.button-bar-container {
 	position: fixed;
-	bottom: 20px;
-	width: 100%;
-	background-color: transparent;
+	bottom: 20px; /* Отступ от нижнего края */
+	width: calc(
+		100% - 40px
+	); /* Ширина блока с отступами по 20px с каждой стороны */
 	display: flex;
-	justify-content: center;
-	gap: 10px;
+	justify-content: space-around; /* Равномерное распределение кнопок по ширине */
 }
 
-nav button {
-	background-color: #333333;
+.footer-button {
+	width: 80px; /* Ширина квадратных кнопок */
+	height: 80px; /* Высота квадратных кнопок */
+	margin: 0 10px;
+	font-size: 18px;
 	border: none;
+	background-color: #555;
+	color: #fff;
+	cursor: pointer;
 	border-radius: 5px;
-	padding: 10px;
-	font-size: 14px;
-	color: #ffffff;
-	flex: 1;
-	max-width: 100px;
-	opacity: 0;
-	transition: opacity 0.3s ease-in;
 }
 
-nav button:hover {
-	background-color: #555555;
-}
-
-nav button:focus {
-	outline: none;
-}
-
-@keyframes button-click {
-	0% {
-		transform: scale(1);
-	}
-	50% {
-		transform: scale(1.1);
-	}
-	100% {
-		transform: scale(1);
-	}
+.orange-bar {
+	background-color: #ef9a00;
+	height: 4px;
+	width: 0;
+	transition: width 0.3s ease;
 }

@@ -1,31 +1,20 @@
+from sqlalchemy import create_engine
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql+asyncpg://username:password@localhost:5432/clicker_db"
+DATABASE_URL = "postgresql+asyncpg://myuser:mypassword@localhost/clicker_db"
 
 engine = create_async_engine(DATABASE_URL, echo=True)
-async_session = sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
-)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, class_=AsyncSession)
 
 Base = declarative_base()
 
-def get_db():
-    db = async_session()
-    try:
-        yield db
-    finally:
-        db.close()
+async def init_db():
+    async with engine.begin() as conn:
+        # Здесь можно выполнять инициализацию базы данных, например создание таблиц
+        await conn.run_sync(Base.metadata.create_all)
 
-class User(Base):
-    __tablename__ = 'users'
-    id = Column(Integer, primary_key=True, index=True)
-    tokens = Column(Integer, default=0)
-    mining_speed = Column(Integer, default=1)
-    auto_mining = Column(Integer, default=0)
-    knowledge_points = Column(Integer, default=0)
-    energy = Column(Integer, default=100)
-    energy_recovery_speed = Column(Integer, default=1)
+async def get_session() -> AsyncSession:
+    async with SessionLocal() as session:
+        yield session

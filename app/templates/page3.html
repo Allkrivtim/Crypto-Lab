@@ -7,14 +7,19 @@
 		<link rel="stylesheet" href="/static/styles.css" />
 	</head>
 	<body>
-		<div id="content">
+		<div class="container">
 			<h1>Page 3</h1>
+			<p>Счетчик: <span id="counter">0</span></p>
 		</div>
-		<nav>
-			<button data-url="/lab">Main</button>
-			<button data-url="/page2">Page 1</button>
-			<button data-url="/page3">Page 2</button>
-		</nav>
-		<script src="/static/script.js"></script>
+		<div class="button-container">
+			<div class="nav-buttons">
+				<a href="/" class="nav-button">1</a>
+				<a href="/page1" class="nav-button active">2</a>
+				<a href="/page2" class="nav-button">3</a>
+				<a href="/page3" class="nav-button">4</a>
+				<div id="active-indicator" class="active-indicator"></div>
+			</div>
+		</div>
+		<script src="/static/scripts.js"></script>
 	</body>
 </html>
