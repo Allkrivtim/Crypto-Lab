@@ -3,23 +3,67 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Page 1</title>
+		<title>Страница 1</title>
+		<link rel="stylesheet" href="/static/styles-page1.css" />
 		<link rel="stylesheet" href="/static/styles.css" />
+		<!-- Стили для всех страниц -->
 	</head>
 	<body>
-		<div class="container">
-			<h1>Page 1</h1>
-			<p>Счетчик: <span id="counter">0</span></p>
-		</div>
-		<div class="button-container">
-			<div class="nav-buttons">
-				<a href="/" class="nav-button">1</a>
-				<a href="/page1" class="nav-button active">2</a>
-				<a href="/page2" class="nav-button">3</a>
-				<a href="/page3" class="nav-button">4</a>
-				<div id="active-indicator" class="active-indicator"></div>
+		<h1>Заработок</h1>
+
+		<!-- Контейнер для разделов с добавленным классом "scrollable" -->
+		<div class="sections-container scrollable">
+			<!-- Раздел 1 -->
+			<div class="section">
+				<h2>1</h2>
+				<div class="button-container">
+					<button>button1 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button2 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button3 <br />1234</button>
+				</div>
+			</div>
+
+			<!-- Раздел 2 -->
+			<div class="section">
+				<h2>2</h2>
+				<div class="button-container">
+					<button>button4 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button5 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button6 <br />1234</button>
+				</div>
+			</div>
+
+			<!-- Раздел 3 -->
+			<div class="section">
+				<h2>3</h2>
+				<div class="button-container">
+					<button>button7 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button8 <br />1234</button>
+				</div>
+				<div class="button-container">
+					<button>button9 <br />1234</button>
+				</div>
 			</div>
 		</div>
-		<script src="/static/scripts.js"></script>
+
+		<!-- Блок кнопок внизу страницы -->
+		<div class="button-bar-container">
+			<a href="/" class="footer-button">1</a>
+			<a href="/page1" class="footer-button">2</a>
+			<a href="/page2" class="footer-button">3</a>
+			<a href="/page3" class="footer-button">4</a>
+		</div>
+
+		<script src="/static/script-page1.js"></script>
 	</body>
 </html>

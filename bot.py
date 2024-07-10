@@ -12,8 +12,8 @@ async def send_welcome(message):
         [
             InlineKeyboardButton(
                 text="Играть в Крипто-лабораторию",
-                web_app=WebAppInfo(url=f"{NGROK_URL}/lab/?user_id={message.from_user.id}")
-                #web_app=WebAppInfo(url=f"{NGROK_URL}/lab")
+                #web_app=WebAppInfo(url=f"{NGROK_URL}/lab/?user_id={message.from_user.id}")
+                web_app=WebAppInfo(url=f"{NGROK_URL}")
             )
         ],
         [

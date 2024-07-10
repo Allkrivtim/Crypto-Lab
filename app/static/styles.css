@@ -2,60 +2,117 @@ body {
 	font-family: Arial, sans-serif;
 	margin: 0;
 	padding: 0;
-	background-color: #111;
+	background-color: #1c1b1b;
 	color: #fff;
 	overflow: hidden; /* Запрещаем скроллинг страницы */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	height: 100vh; /* Занимаем всю высоту окна браузера */
+	justify-content: space-between; /* Центрируем содержимое по вертикали */
 }
 
 .container {
 	text-align: center;
-	margin-top: 50px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center; /* Центрируем содержимое внутри контейнера */
+	flex-grow: 1; /* Заставляем контейнер занимать оставшееся пространство */
+}
+
+.click-counter {
+	font-size: 49.5px; /* Уменьшаем размер счетчика на 10% */
+	margin-bottom: 20px; /* Добавляем отступ снизу */
+	opacity: 0;
+	animation: slideIn 0.5s forwards;
 }
 
 .main-button {
-	width: 250px;
-	height: 250px;
+	width: 172px;
+	height: 172px;
 	background-color: #ef9a00;
 	color: #fff;
-	font-size: 48px;
+	font-size: 23.04px; /* Уменьшаем размер текста на 30% */
 	border: none;
 	border-radius: 50%;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 20px; /* Отступ снизу для разделения от блока кнопок */
+	margin-bottom: 20px; /* Уменьшаем отступ снизу */
+	opacity: 0;
+	animation: slideIn 0.5s forwards;
 }
 
 .button-bar-container {
-	position: fixed;
-	bottom: 20px; /* Отступ от нижнего края */
-	width: calc(
-		100% - 40px
-	); /* Ширина блока с отступами по 20px с каждой стороны */
 	display: flex;
-	justify-content: space-around; /* Равномерное распределение кнопок по ширине */
+	justify-content: center;
+	align-items: center;
+	background-color: #262626;
+	padding: 10px;
+	border-radius: 10px;
+	width: 80%;
+	height: 50px;
+	position: fixed; /* Фиксированное позиционирование */
+	bottom: 0; /* Прижимаем к нижнему краю страницы */
 }
 
 .footer-button {
-	width: 80px; /* Ширина квадратных кнопок */
-	height: 80px; /* Высота квадратных кнопок */
-	margin: 0 10px;
-	font-size: 18px;
-	border: none;
-	background-color: #555;
+	display: inline-block;
+	text-decoration: none;
 	color: #fff;
+	font-size: 1.5em;
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	background-color: #555;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 10px;
 	cursor: pointer;
-	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	transform: translateY(-2px);
 }
 
-.orange-bar {
+.footer-button.active {
+	background-color: #777;
+}
+
+.footer-button:hover {
+	background-color: #777;
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.click-counter,
+.main-button,
+h1 {
+	opacity: 0;
+	transform: translateY(50px);
+	animation: slideIn 0.5s forwards;
+}
+
+.main-button {
+	display: inline-block;
+	width: 172px;
+	height: 172px;
+	line-height: 172px;
+	border-radius: 50%;
 	background-color: #ef9a00;
-	height: 4px;
-	width: 0;
-	transition: width 0.3s ease;
+	color: #fff;
+	font-size: 1.5em;
+	text-align: center;
+	margin-top: 20px;
+	opacity: 0;
+	animation: slideIn 0.475s forwards; /* Изменяем продолжительность на 0.475s */
 }

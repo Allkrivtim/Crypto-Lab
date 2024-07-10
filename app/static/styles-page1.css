@@ -1,0 +1,139 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #1c1b1b;
+	color: #fff;
+	overflow-y: scroll; /* или overflow-y: auto; */
+	overflow-x: hidden; /* Запрещаем горизонтальный скроллинг */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between; /* Центрируем содержимое по вертикали */
+	height: 100vh; /* Занимаем всю высоту окна браузера */
+}
+
+.scrollable {
+	overflow-y: auto; /* Включаем вертикальный скроллинг */
+}
+
+.sections-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	padding-bottom: 80px; /* Добавляем отступ снизу для кнопок */
+}
+
+.section {
+	width: calc(95% - 40px); /* Уменьшаем ширину на 5% минус 40px */
+	height: calc(55% - 40px); /* Уменьшаем высоту на 45% минус 40px */
+	margin-left: 20px; /* Оставляем отступ слева на 20px */
+	margin-right: 20px; /* Оставляем отступ справа на 20px */
+	margin-top: 20px; /* Отступ сверху на 20px */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #292624; /* Изменяем цвет фона блока кнопок */
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+}
+
+.button-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px; /* Отступ сверху между разделами и кнопками */
+}
+
+.button-container button {
+	width: calc(
+		100% - 20px
+	); /* Ширина кнопки по ширине контейнера с отступами по краям */
+	height: 50px; /* Высота кнопки */
+	background-color: #635b57; /* Цвет фона кнопки */
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 1em;
+	text-align: left; /* Выравниваем текст по левому краю */
+	padding-left: 10px; /* Отступ слева для текста на кнопке */
+	display: flex;
+	align-items: center;
+	gap: 5px; /* Промежуток между иконкой и текстом на кнопке */
+	transition: background-color 0.3s ease; /* Плавное изменение цвета при наведении */
+}
+
+.button-container button:hover {
+	background-color: #79746e; /* Цвет фона кнопки при наведении */
+}
+
+.svg-icon {
+	width: 50px; /* Ширина иконки */
+	height: 50px; /* Высота иконки */
+	fill: #fff; /* Цвет иконки */
+	margin-bottom: 20px; /* Отступ снизу */
+}
+
+.svg-icon svg {
+	width: 100%;
+	height: 100%;
+}
+
+.button-bar-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #262626;
+	padding: 10px;
+	border-radius: 10px;
+	width: 80%;
+	height: 50px;
+	position: fixed; /* Фиксированное позиционирование */
+	bottom: 0; /* Прижимаем к нижнему краю страницы */
+}
+
+.footer-button {
+	display: inline-block;
+	text-decoration: none;
+	color: #fff;
+	font-size: 1.5em;
+	width: 50px;
+	height: 50px;
+	margin: 10px;
+	background-color: #555;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	transform: translateY(-2px);
+}
+
+.footer-button.active {
+	background-color: #777;
+}
+
+.footer-button:hover {
+	background-color: #777;
+}
+
+.section,
+h1 {
+	opacity: 0;
+	transform: translateY(50px);
+}
+
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateY(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
