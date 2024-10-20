@@ -1,0 +1,41 @@
+services:
+  app:
+    build: ./app
+    container_name: fastapi_app
+    volumes:
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - webnet
+
+  proxy:
+    build: ./proxy
+    container_name: nginx_proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - webnet
+
+  postgres:
+    image: postgres:15 # Используйте последнюю версию PostgreSQL
+    container_name: postgres_db # Имя контейнера
+    environment:
+      POSTGRES_USER: myuser # Замените на имя пользователя, которое хотите использовать
+      POSTGRES_PASSWORD: mypassword # Замените на пароль
+      POSTGRES_DB: mydatabase # Замените на имя базы данных
+    ports:
+      - "5432:5432" # Порт, на котором будет доступен PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Для постоянного хранения данных
+    networks:
+      - webnet
+
+networks:
+  webnet:
+
+
+volumes:
+  postgres_data:

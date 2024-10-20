@@ -1,0 +1,27 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #000000;
+}
+
+.mine_button {
+  color: #fff;
+  background-color: #ff8215;
+  justify-content: center;
+  border: 0px solid #ff8215;
+  border-radius: 500px;
+  width: 250px;
+  height: 250px;
+  font-size: 40px;
+}
+
+.mine_button:hover {
+  background-color: #f37e19;
+}
+
+.mine_button:active {
+  transform: scale(0.99);
+}
