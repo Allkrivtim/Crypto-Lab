@@ -16,4 +16,4 @@ async def click(data = Body()):
     except KeyError as e:
         raise HTTPException(status_code=400, detail=f"Missing field: {str(e)}")
     
-    return JSONResponse({'message': f'[INFO] ' + telegram_id + user_id + count + time + update_time + upgrades + energy})
+    return JSONResponse({'message': f'[INFO] ' + str(telegram_id) + str(user_id) + str(count) + str(time) + str(update_time) + str(upgrades) + str(energy)})
