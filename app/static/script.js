@@ -33,13 +33,13 @@ function send_tokens() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      telegram_id: telegram_id,
-      user_id: id,
-      user_count: clicks,
-      user_time: time,
-      user_updatetime: updatetime,
-      user_upgrades: upgrades,
-      user_energy: energy
+      telegram_id: "telegram_id",
+      user_id: "id",
+      user_count: "clicks",
+      user_time: "time",
+      user_updatetime: "updatetime",
+      user_upgrades: "upgrades",
+      user_energy: "energy"
     })
   })
     .then(response => response.json())
