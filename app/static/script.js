@@ -1,5 +1,6 @@
-const button = document.getElementById("mine_button");
-const scoreElement = document.getElementById("score");
+const button_elm = document.getElementById("mine_button");
+const score_elm = document.getElementById("score");
+const energy_elm = document.getElementById("energy");
 
 let clicks = 0;
 let wait = 0;
@@ -9,20 +10,32 @@ let id = 0;
 let telegram_id = 0;
 let upgrades = 0;
 let updatetime = new Date();
-let energy = 0;
+let energy = 100;
+let max_energy = 100;
 
-button.addEventListener("click", function (event) {
-  clicks++;
-  total_clicks++;
-  scoreElement.textContent = total_clicks;
-  createParticles(event.clientX, event.clientY); // Создаём частицы
-  wait = 1;
-  setTimeout(() => {
-    wait = 0;
-    if (clicks > 0) {
-      send_tokens();
-    }
-  }, 5000);
+function regenerateEnergy() {
+  if (energy < max_energy) {
+    energy += 1;
+    energy_elm.textContent = energy;
+  }
+}
+
+button_elm.addEventListener("click", function (event) {
+  if (energy > 0) {
+    clicks++;
+    total_clicks++;
+    score_elm.textContent = total_clicks;
+    energy_elm.textContent = energy;
+    createParticles(event.clientX, event.clientY); // Создаём частицы
+    wait = 1;
+    setTimeout(() => {
+      wait = 0;
+      if (clicks > 0) {
+        send_tokens();
+      }
+    }, 5000);
+    energy--;
+  }
 });
 
 function createParticles(x, y) {
@@ -48,26 +61,22 @@ function createParticles(x, y) {
 }
 
 function send_tokens() {
-  fetch('http://127.0.0.1:8000/api/clicker/tap', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  fetch("http://127.0.0.1:8000/api/clicker/tap", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       telegram_id: telegram_id,
       user_id: id,
       user_count: clicks,
-      user_time: new Date().toISOString(), // Преобразуем текущее время в строку ISO
-      user_updatetime: new Date().toISOString(), // Преобразуем текущее время в строку ISO
+      user_time: time,
+      user_updatetime: updatetime,
       user_upgrades: upgrades,
       user_energy: energy
     })
   })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => console.log(data))
-    .catch(error => alert(error));
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch((error) => alert(error));
   clicks = 0;
 }
+setInterval(regenerateEnergy, 1000);
