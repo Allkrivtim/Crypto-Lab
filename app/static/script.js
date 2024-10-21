@@ -1,6 +1,9 @@
 const button_elm = document.getElementById("mine_button");
 const score_elm = document.getElementById("score");
 const energy_elm = document.getElementById("energy");
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("btn_1");
+const span = document.getElementsByClassName("close")[0];
 
 let clicks = 0;
 let wait = 0;
@@ -80,3 +83,17 @@ function send_tokens() {
   clicks = 0;
 }
 setInterval(regenerateEnergy, 1000);
+
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+window.onclick = function (event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
