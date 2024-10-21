@@ -1,21 +1,40 @@
-from fastapi import APIRouter, Body, HTTPException
-from fastapi.responses import JSONResponse
-from database import upsert_clicker, get_user_data
+import sys
+import logging
 from datetime import datetime
+from fastapi import APIRouter, Depends, HTTPException
+
+from src.services.utils import get_db_pool
+from database import upsert_clicker, get_user_data
+
 
 router = APIRouter()
+logging.basicConfig(level=logging.INFO)
 
-@router.post("/api/clicker/tap")
-async def click(data=Body()):
+@router.post(
+    '/tap',
+    description='Publish',
+    summary='Publish',
+)
+async def click(
+    telegram_id: int,
+    user_count: int,
+    user_energy: int,
+    user_id: int,
+    user_time: str,
+    user_updatetime: str,
+    user_upgrades: int,
+    db_pool = Depends(get_db_pool)
+):
     try:
-        telegram_id = int(data['telegram_id'])
-        user_id = int(data['user_id'])
-        count = int(data['user_count'])
+        telegram_id = int(telegram_id)
+        user_id = int(user_id)
+        count = int(user_count)
+
 
         # Убедитесь, что user_time и user_updatetime - строки
-        time_str = data['user_time']
-        update_time_str = data['user_updatetime']
-        
+        time_str = str(user_time)
+        update_time_str = user_updatetime
+
         if isinstance(time_str, str) and isinstance(update_time_str, str):
             # Преобразуем строки в объекты datetime
             time = datetime.fromisoformat(time_str.replace('Z', '+00:00'))
@@ -23,8 +42,8 @@ async def click(data=Body()):
         else:
             raise ValueError("user_time и user_updatetime должны быть строками")
 
-        upgrades = int(data['user_upgrades'])
-        energy = int(data['user_energy'])
+        upgrades = int(user_upgrades)
+        energy = int(user_energy)
 
         # Подготовка данных для вставки или обновления
         clicker_data = {
@@ -41,24 +60,12 @@ async def click(data=Body()):
         await upsert_clicker(clicker_data)
 
         return JSONResponse({'message': f"Данные успешно обработаны для user_id {user_id}"})
-
+    except Exception as e:
+        error = str(f"error: {e} -------{sys.exc_info()[-1].tb_lineno}")
+        raise HTTPException(status_code=400, detail=f"Number string error: {error}")
     except KeyError as e:
         raise HTTPException(status_code=400, detail=f"Missing field: {str(e)}")
     except ValueError as e:
         raise HTTPException(status_code=400, detail=f"Неверный тип данных: {str(e)}")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
-
-
-
-@router.get("/api/clicker/user/{user_id}")
-async def get_user(user_id: int):
-    """Получение данных о пользователе по user_id"""
-    try:
-        user_data = await get_user_data(user_id)
-        if user_data:
-            return JSONResponse(user_data)
-        else:
-            raise HTTPException(status_code=404, detail=f"Пользователь с id {user_id} не найден")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка сервера: {str(e)}")
