@@ -63,7 +63,7 @@ function send_tokens() {
   })
     .then(response => {
       if (!response.ok) {
-        throw new Error(`Ошибка: ${response.statusText}`);
+        throw new Error(`${response.statusText}`);
       }
       return response.json();
     })
