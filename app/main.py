@@ -5,7 +5,9 @@ from fastapi.templating import Jinja2Templates
 from starlette.requests import Request
 from handlers import router
 from fastapi.middleware.cors import CORSMiddleware
+import logging
 
+logging.basicConfig(level=logging.INFO)
 app = FastAPI()
 
 app.add_middleware(
