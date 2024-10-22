@@ -1,3 +1,2 @@
 # Crypto-Lab
- 
- use docker-compose up --build to start project
+Use docker-compose up --build to start project
