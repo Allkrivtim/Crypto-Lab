@@ -1,6 +1,8 @@
 services:
   app:
     build: ./app
+    depends_on:
+      - postgres
     container_name: fastapi_app
     volumes:
       - ./app:/app
@@ -9,13 +11,13 @@ services:
     networks:
       - webnet
 
-  proxy:
-    build: ./proxy
-    container_name: nginx_proxy
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf:/etc/nginx/conf.d:ro
     ports:
       - "80:80"
-    depends_on:
-      - app
     networks:
       - webnet
 
@@ -30,6 +32,7 @@ services:
       - "5432:5432" # Порт, на котором будет доступен PostgreSQL
     volumes:
       - postgres_data:/var/lib/postgresql/data # Для постоянного хранения данных
+      - ./sql:/docker-entrypoint-initdb.d
     networks:
       - webnet
 
