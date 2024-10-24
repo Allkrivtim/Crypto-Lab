@@ -22,17 +22,33 @@ services:
       - webnet
 
   postgres:
-    image: postgres:15 # Используйте последнюю версию PostgreSQL
-    container_name: postgres_db # Имя контейнера
+    image: postgres:15
+    container_name: postgres_db
     environment:
-      POSTGRES_USER: myuser # Замените на имя пользователя, которое хотите использовать
-      POSTGRES_PASSWORD: mypassword # Замените на пароль
-      POSTGRES_DB: mydatabase # Замените на имя базы данных
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
     ports:
-      - "5432:5432" # Порт, на котором будет доступен PostgreSQL
+      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Для постоянного хранения данных
+      - postgres_data:/var/lib/postgresql/data
       - ./sql:/docker-entrypoint-initdb.d
+    networks:
+      - webnet
+
+  telegram_bot:
+    build: ./bot
+    depends_on:
+      - localtunnel
+    networks:
+      - webnet
+
+  localtunnel:
+    build:
+      context: ./localtunnel
+      dockerfile: Dockerfile
+    ports:
+      - "4040:4040"
     networks:
       - webnet
 
