@@ -14,12 +14,14 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/conf:/etc/nginx/conf.d:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
+    depends_on:
+      - app
     networks:
       - webnet
+      - tunnelnet
 
   postgres:
     image: postgres:15
@@ -40,8 +42,6 @@ services:
     build: ./bot
     depends_on:
       - localtunnel
-    networks:
-      - webnet
 
   localtunnel:
     build:
@@ -50,10 +50,13 @@ services:
     ports:
       - "4040:4040"
     networks:
-      - webnet
+      - tunnelnet
+    depends_on:
+      - nginx
 
 networks:
   webnet:
+  tunnelnet:
 
 
 volumes:
