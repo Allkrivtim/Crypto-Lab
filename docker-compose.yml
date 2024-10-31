@@ -21,7 +21,6 @@ services:
       - app
     networks:
       - webnet
-      - tunnelnet
 
   postgres:
     image: postgres:15
@@ -41,22 +40,10 @@ services:
   telegram_bot:
     build: ./bot
     depends_on:
-      - localtunnel
-
-  localtunnel:
-    build:
-      context: ./localtunnel
-      dockerfile: Dockerfile
-    ports:
-      - "4040:4040"
-    networks:
-      - tunnelnet
-    depends_on:
       - nginx
 
 networks:
   webnet:
-  tunnelnet:
 
 
 volumes:
