@@ -42,7 +42,7 @@ async def start(message: Message):
     )
     builder.button(
         text="Earn crypto dust right now!",
-        web_app=WebAppInfo(url=f"https://share-space.ru/telegram-bot/{encrypted_id}")
+        web_app=WebAppInfo(url=f"https://crypto-lab.website/telegram-bot/{encrypted_id}")
     )
     builder.adjust(2)
     await message.answer(
