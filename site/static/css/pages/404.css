@@ -1,0 +1,17 @@
+body {
+  display: grid;
+  place-items: center;
+  font-family: 'Ubuntu';
+  background-color: #0a0a0a;
+  min-height: 100vh;
+}
+
+h1 {
+  color: #e8e8e8;
+  font-size: 50px;
+}
+
+.err-404 {
+  margin: 0;
+  font-size: 150px;
+}
