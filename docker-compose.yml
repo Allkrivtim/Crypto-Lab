@@ -15,8 +15,8 @@ services:
     container_name: cryptolab_site
     env_file:
       - ./site/.env
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     networks:
       - mainNetwork
     depends_on:
